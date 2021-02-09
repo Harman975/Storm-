@@ -13,20 +13,29 @@ float ADC;
 int i;
 
 
-unsigned int Read_ADC ()
+unsigned int Read_ADC (unsigned char channel)
 {
-    unsigned int TEMP_ADC = 0;
-   
- 
-       
+    unsigned int result;
+    if (channel == 0)
+    {
+         ADCON0bits.CHS = 0000;
+         
+         
+    }          
+    else 
+    {
        ADCON0bits.CHS = 0001;
+      
+    }
+       
+        //ADCON0bits.CHS = channel; /*optimised*/     
+        result = 0; 
        ADCON0bits.GO = 1;
        while (ADCON0bits.DONE == 1);// wait till GODONE bit is zero
-        
-        TEMP_ADC = (ADRESH << 8) | (ADRESL); //combines two bytes into a long int
+       result = (ADRESH << 8) | (ADRESL); //combines two bytes into a long int
 
         
-    return TEMP_ADC;
+    return result;
 }
 
 void ADC_intialize(void)
@@ -53,15 +62,4 @@ void ADC_intialize(void)
 }
 /**************ADC SAMPLE SECOND CHANNEL*************/
 
-unsigned int Read_ADC2 ()
-
-      
-{
-    unsigned int HUMID = 0;
-   ADCON0bits.CHS = 0000;
-    ADCON0bits.GO = 1;
-       while (ADCON0bits.DONE == 1);// wait till GODONE bit is zero
-       HUMID = (ADRESH << 8) | (ADRESL); //combines two bytes into a long int
-        return HUMID;
-}
 

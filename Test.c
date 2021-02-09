@@ -74,6 +74,10 @@
 #include "hw_adc.h"
 //#define vref 4.5
 
+#define TEMPERATURE 0
+#define HUMIDITY 1
+
+
 static void CLK_intialize (void)
 {
 //    
@@ -104,8 +108,9 @@ static void INTERRUPT_Initialize(void)
 
 void main()
 {
-    unsigned int adc = 0;
-    unsigned int adc_h = 0;
+    unsigned int temp_adc = 0;
+    unsigned int humid_adc = 0;
+    
     char _adc_str[20];
     char _adc_buf[20];
     
@@ -113,7 +118,7 @@ void main()
    PORT_Initialize();
    UART_Init(9600);
    ADC_intialize();
-   Read_ADC2 ();
+   
    
     while (1)
     {
@@ -126,16 +131,18 @@ void main()
             TRISB1 = 1;
 
             
-            adc = Read_ADC ();
+            temp_adc = Read_ADC (TEMPERATURE);
        
-            snprintf(_adc_str, 20, "TEMP: %u\n", adc);
+            snprintf(_adc_str, 20, "TEMP: %u\n", temp_adc);
             UART_send_string(_adc_str);
             
-             __delay_ms(500); 
+            __delay_ms(500);
+           
+            
+            humid_adc = Read_ADC (HUMIDITY);
+            snprintf(_adc_str, 20, "HUMID: %u\n", humid_adc);
              
-             adc_h =   Read_ADC2 ();
-             snprintf(_adc_buf, 20, "HUMID: %u\n", adc_h);
-             
+      
     }
      
 }
