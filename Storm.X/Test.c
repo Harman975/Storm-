@@ -74,6 +74,10 @@
 #include "hw_adc.h"
 //#define vref 4.5
 
+#define TEMPERATURE 0
+#define HUMIDITY 1
+
+
 static void CLK_intialize (void)
 {
 //    
@@ -104,35 +108,51 @@ static void INTERRUPT_Initialize(void)
 
 void main()
 {
-    unsigned int adc = 0;
+    unsigned int temp_adc = 0;
+    unsigned int humid_adc = 0;
+    
     char _adc_str[20];
+    char _adc_buf[20];
     
    CLK_intialize();
    PORT_Initialize();
    UART_Init(9600);
    ADC_intialize();
    
+   
     while (1)
     {
            
-            UART_send_string("Dave is a legend!\n");
+        // UART_send_string("Dave is a legend!\n");
             
             __delay_ms(500); 
             TRISB1 = 0;
            __delay_ms(500);
             TRISB1 = 1;
 
-            adc = Read_ADC ();
-           // memset(_adc_str, 0x00, sizeof(_adc_str));
-
-            snprintf(_adc_str, 20, "ADC: %u\n", adc);
-            //memset(_adc_str, 0x00, sizeof(_adc_str));
-           // snprintf(_adc_str, 19, "ADC: %d\n", adc);
+            
+              
+            temp_adc = Read_ADC (TEMPERATURE);
+       
+            sprintf(_adc_str,"TEMP: %u\n", temp_adc);
             UART_send_string(_adc_str);
-            //UART_send_string("Harman");
+            
+            __delay_ms(100);
+            
+          
+           
+            
+           humid_adc = Read_ADC (HUMIDITY);
+           sprintf(_adc_str, "HUMID: %u\n", humid_adc);
+          UART_send_string(_adc_str);
+             
+           __delay_ms(100);
+      
     }
      
 }
+
+
 
 
 
