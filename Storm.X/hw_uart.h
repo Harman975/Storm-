@@ -13,7 +13,7 @@ extern "C" {
 #endif
 
     
-extern void UART_Init(uint24_t baud_rate);
+extern void UART_Init(unsigned int baud_rate);
 extern void UART_send_string(char* st_pt);
 
 

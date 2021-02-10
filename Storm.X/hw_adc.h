@@ -13,7 +13,7 @@ extern "C" {
 #endif
 
 extern void ADC_intialize(void);
-extern unsigned int Read_ADC ();
+extern unsigned int Read_ADC (unsigned char channel);
 extern void ADC_INT  (void );
 
 

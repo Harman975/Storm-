@@ -7,7 +7,7 @@
 #include "hw_uart.h"
 
 
-void UART_Init(uint24_t baud_rate)
+void UART_Init(unsigned int baud_rate)
 {
     /* Transmit Enable */
    TXSTAbits.TXEN = 1;
