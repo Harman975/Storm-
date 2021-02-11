@@ -123,7 +123,7 @@ void main()
     while (1)
     {
            
-        // UART_send_string("Dave is a legend!\n");
+            UART_send_string("Dave is a legend!\n");
             
             __delay_ms(500); 
             TRISB1 = 0;
@@ -131,28 +131,21 @@ void main()
             TRISB1 = 1;
 
             
-              
             temp_adc = Read_ADC (TEMPERATURE);
        
-            sprintf(_adc_str,"TEMP: %u\n", temp_adc);
-            UART_send_string(_adc_str);
+            snprintf(_adc_str, 20, "TEMP: %u\n", temp_adc);
             
-            __delay_ms(100);
             
-          
+            __delay_ms(500);
            
             
-           humid_adc = Read_ADC (HUMIDITY);
-           sprintf(_adc_str, "HUMID: %u\n", humid_adc);
-          UART_send_string(_adc_str);
+            humid_adc = Read_ADC (HUMIDITY);
+            snprintf(_adc_str, 20, "HUMID: %u\n", humid_adc);
              
-           __delay_ms(100);
       
     }
      
 }
-
-
 
 
 
