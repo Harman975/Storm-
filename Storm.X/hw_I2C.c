@@ -21,9 +21,10 @@ void InitI2C()
 	TRISC4 = 1;		// Make SDA and
 	TRISC5 = 1;		// SCK pins input
 
-	SSPADD  = 0x09;
-	SSPSTAT = 0x80;		// Slew Rate control is disabled
-	SSPCON1  = 0x28;		// Select and enable I2C in master mode
+	SSPADD  = 0xCF;
+	SSPSTATbits.SMP = 1;		// Slew Rate control is disabled
+	SSPCON1bits.SSPEN  = 1;		// Select and enable I2C in master mode
+    
 }
 
 
