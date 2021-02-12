@@ -4015,7 +4015,7 @@ void InitI2C()
 TRISC4 = 1;
 TRISC5 = 1;
 
-SSPADD = 0x28;
+SSPADD = 0x09;
 SSPSTAT = 0x80;
 SSPCON1 = 0x28;
 }

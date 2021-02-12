@@ -2561,9 +2561,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;hw_I2C.c: 22: TRISC5 = 1;
 "22
 [e = _TRISC5 -> -> 1 `i `b ]
-[; ;hw_I2C.c: 24: SSPADD = 0x28;
+[; ;hw_I2C.c: 24: SSPADD = 0x09;
 "24
-[e = _SSPADD -> -> 40 `i `uc ]
+[e = _SSPADD -> -> 9 `i `uc ]
 [; ;hw_I2C.c: 25: SSPSTAT = 0x80;
 "25
 [e = _SSPSTAT -> -> 128 `i `uc ]
