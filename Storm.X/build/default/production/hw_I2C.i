@@ -1,71 +1,15 @@
 
-# 1 "hw_adc.c"
+# 1 "hw_I2C.c"
 
-# 4 "C:/Users/Lab-User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\__size_t.h"
-typedef unsigned size_t;
+# 18 "C:/Users/Lab-User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\xc.h"
+extern const char __xc8_OPTIM_SPEED;
 
-# 7 "C:\Program Files\Microchip\xc8\v2.31\pic\include\c90\stdarg.h"
-typedef void * va_list[1];
-
-#pragma intrinsic(__va_start)
-extern void * __va_start(void);
-
-#pragma intrinsic(__va_arg)
-extern void * __va_arg(void *, ...);
-
-# 43 "C:\Program Files\Microchip\xc8\v2.31\pic\include\c90\stdio.h"
-struct __prbuf
-{
-char * ptr;
-void (* func)(char);
-};
-
-# 29 "C:\Program Files\Microchip\xc8\v2.31\pic\include\c90\errno.h"
-extern int errno;
-
-# 12 "C:\Program Files\Microchip\xc8\v2.31\pic\include\c90\conio.h"
-extern void init_uart(void);
-
-extern char getch(void);
-extern char getche(void);
-extern void putch(char);
-extern void ungetch(char);
-
-extern __bit kbhit(void);
-
-# 23
-extern char * cgets(char *);
-extern void cputs(const char *);
-
-# 88 "C:\Program Files\Microchip\xc8\v2.31\pic\include\c90\stdio.h"
-extern int cprintf(char *, ...);
-#pragma printf_check(cprintf)
+extern double __fpnormalize(double);
 
 
-
-extern int _doprnt(struct __prbuf *, const register char *, register va_list);
-
-
-# 180
-#pragma printf_check(vprintf) const
-#pragma printf_check(vsprintf) const
-
-extern char * gets(char *);
-extern int puts(const char *);
-extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
-extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
-extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
-extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
-extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
-extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
-
-#pragma printf_check(printf) const
-#pragma printf_check(sprintf) const
-extern int sprintf(char *, const char *, ...);
-extern int printf(const char *, ...);
-
-# 15 "C:\Program Files\Microchip\xc8\v2.31\pic\include\c90\stdbool.h"
-typedef unsigned char bool;
+# 13 "C:\Program Files\Microchip\xc8\v2.31\pic\include\c90\xc8debug.h"
+#pragma intrinsic(__builtin_software_breakpoint)
+extern void __builtin_software_breakpoint(void);
 
 # 52 "C:/Users/Lab-User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f2520.h"
 extern volatile unsigned char PORTA __at(0xF80);
@@ -3940,57 +3884,182 @@ extern volatile __bit nW __at(0x7E3A);
 
 extern volatile __bit nWRITE __at(0x7E3A);
 
-# 16 "hw_uart.h"
-extern void UART_Init(unsigned int baud_rate);
-extern void UART_send_string(char* st_pt);
-
-# 10 "hw_adc.c"
-float voltage ;
-float value;
-float ADC;
-int i;
+# 18 "C:/Users/Lab-User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\pic18.h"
+__attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
+__attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
 
 
+# 49
+#pragma intrinsic(__nop)
+extern void __nop(void);
+
+# 158
+__attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
+__attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
+__attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
+
+# 194
+unsigned char __t1rd16on(void);
+unsigned char __t3rd16on(void);
 
 
-void ADC_intialize(void)
+# 202
+#pragma intrinsic(_delay)
+extern __nonreentrant void _delay(unsigned long);
+#pragma intrinsic(_delaywdt)
+extern __nonreentrant void _delaywdt(unsigned long);
+#pragma intrinsic(_delay3)
+extern __nonreentrant void _delay3(unsigned char);
 
-# 24
+# 4 "C:/Users/Lab-User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\__size_t.h"
+typedef unsigned size_t;
+
+# 7 "C:\Program Files\Microchip\xc8\v2.31\pic\include\c90\stdarg.h"
+typedef void * va_list[1];
+
+#pragma intrinsic(__va_start)
+extern void * __va_start(void);
+
+#pragma intrinsic(__va_arg)
+extern void * __va_arg(void *, ...);
+
+# 43 "C:\Program Files\Microchip\xc8\v2.31\pic\include\c90\stdio.h"
+struct __prbuf
 {
-TRISA1 = 1 ;
-TRISA2 = 1 ;
+char * ptr;
+void (* func)(char);
+};
 
-# 32
-ADCON1bits.PCFG = 0b1100;
-ADCON1bits.VCFG0 = 0;
-ADCON1bits.VCFG1 = 0 ;
+# 29 "C:\Program Files\Microchip\xc8\v2.31\pic\include\c90\errno.h"
+extern int errno;
+
+# 12 "C:\Program Files\Microchip\xc8\v2.31\pic\include\c90\conio.h"
+extern void init_uart(void);
+
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
+
+extern __bit kbhit(void);
+
+# 23
+extern char * cgets(char *);
+extern void cputs(const char *);
+
+# 88 "C:\Program Files\Microchip\xc8\v2.31\pic\include\c90\stdio.h"
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
 
 
-ADCON2bits.ADCS = 0b110;
-ADCON2bits.ACQT = 0b111;
-ADCON2bits.ADFM = 1;
-ADCON0bits.ADON = 1 ;
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+
+
+# 180
+#pragma printf_check(vprintf) const
+#pragma printf_check(vsprintf) const
+
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+
+# 15 "C:\Program Files\Microchip\xc8\v2.31\pic\include\c90\stdbool.h"
+typedef unsigned char bool;
+
+# 14 "C:\Program Files\Microchip\xc8\v2.31\pic\include\c90\string.h"
+extern void * memcpy(void *, const void *, size_t);
+extern void * memmove(void *, const void *, size_t);
+extern void * memset(void *, int, size_t);
+
+# 36
+extern char * strcat(char *, const char *);
+extern char * strcpy(char *, const char *);
+extern char * strncat(char *, const char *, size_t);
+extern char * strncpy(char *, const char *, size_t);
+extern char * strdup(const char *);
+extern char * strtok(char *, const char *);
+
+
+extern int memcmp(const void *, const void *, size_t);
+extern int strcmp(const char *, const char *);
+extern int stricmp(const char *, const char *);
+extern int strncmp(const char *, const char *, size_t);
+extern int strnicmp(const char *, const char *, size_t);
+extern void * memchr(const void *, int, size_t);
+extern size_t strcspn(const char *, const char *);
+extern char * strpbrk(const char *, const char *);
+extern size_t strspn(const char *, const char *);
+extern char * strstr(const char *, const char *);
+extern char * stristr(const char *, const char *);
+extern char * strerror(int);
+extern size_t strlen(const char *);
+extern char * strchr(const char *, int);
+extern char * strichr(const char *, int);
+extern char * strrchr(const char *, int);
+extern char * strrichr(const char *, int);
+
+# 19 "hw_I2C.c"
+void InitI2C()
+{
+TRISC3 = 1;
+TRISC4 = 1;
+
+SSPADD = 0x13;
+SSPSTAT = 0;
+SSPCON1bits.SSPEN = 1;
+SSPCON1bits.SSPM = 0b1000;
+SSPIF = 0;
 }
 
-unsigned int Read_ADC (unsigned char channel)
-
+void I2C_Master_Wait()
 {
-unsigned int result = 0;
-if (channel == 0)
-{
-ADCON0bits.CHS = 0b0001;
-
+while ((SSPSTAT & 0x04) || (SSPCON2 & 0x1F));
 }
-if (channel == 1)
+void I2C_Master_Start()
 {
-
-ADCON0bits.CHS = 0b0010;
-
+I2C_Master_Wait();
+SEN = 1;
 }
 
-ADCON0bits.GO = 1;
-while (ADCON0bits.DONE == 1);
-result = (ADRESH << 8) | (ADRESL);
-
-return result;
+void I2C_Master_RepeatedStart()
+{
+I2C_Master_Wait();
+RSEN = 1;
 }
+
+void I2C_Master_Stop()
+{
+I2C_Master_Wait();
+PEN = 1;
+}
+
+void I2C_Master_Write(unsigned d)
+{
+I2C_Master_Wait();
+SSPBUF = d;
+}
+
+unsigned short I2C_Master_Read(unsigned short a)
+{
+unsigned short data;
+I2C_Master_Wait();
+RCEN = 1;
+I2C_Master_Wait();
+data = SSPBUF;
+I2C_Master_Wait();
+ACKDT = (a)?0:1;
+ACKEN = 1;
+return data;
+}
+

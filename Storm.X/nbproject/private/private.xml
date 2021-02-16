@@ -3,12 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/repos/Harman/Storm.X/hw_uart.h</file>
-            <file>file:/D:/repos/Harman/Storm.X/Test.c</file>
-            <file>file:/D:/repos/Harman/Storm.X/hw_uart.c</file>
-            <file>file:/D:/repos/Harman/Storm.X/hw_adc.c</file>
-            <file>file:/D:/repos/Harman/Storm.X/nbproject/Makefile-impl.mk</file>
-            <file>file:/D:/repos/Harman/Storm.X/hw_adc.h</file>
+            <file>file:/D:/repos/Harman/Storm--RTCC_hw-1/Storm.X/hw_uart.c</file>
+            <file>file:/D:/repos/Harman/Storm--RTCC_hw-1/Storm.X/nbproject/Makefile-default.mk</file>
+            <file>file:/D:/repos/Harman/Storm--RTCC_hw-1/Storm.X/hw_I2C.c</file>
+            <file>file:/D:/repos/Harman/Storm--RTCC_hw-1/Storm.X/hw_adc.c</file>
+            <file>file:/D:/repos/Harman/Storm--RTCC_hw-1/Storm.X/RTCC.c</file>
+            <file>file:/D:/repos/Harman/Storm--RTCC_hw-1/Storm.X/Test.c</file>
         </group>
     </open-files>
 </project-private>

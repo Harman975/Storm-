@@ -4074,6 +4074,19 @@ extern void ADC_intialize(void);
 extern unsigned int Read_ADC (unsigned char channel);
 extern void ADC_INT (void );
 
+# 15 "hw_I2C.h"
+extern void InitI2C();
+
+# 23
+extern void I2C_Master_Start();
+extern void I2C_Master_Write(unsigned d);
+extern void I2C_Master_Stop();
+
+# 14 "RTCC.h"
+extern void RTC_test_write (void);
+void RTC_test_read (void);
+void BCDtoDecimal (char val);
+
 # 81 "Test.c"
 static void CLK_intialize (void)
 {
@@ -4105,6 +4118,7 @@ INTCONbits.PEIE = 1;
 
 void main()
 {
+
 unsigned int temp_adc = 0;
 unsigned int humid_adc = 0;
 
@@ -4116,6 +4130,11 @@ PORT_Initialize();
 UART_Init(9600);
 ADC_intialize();
 
+InitI2C();
+
+
+unsigned char i2c_val;
+char time [10];
 
 while (1)
 {
@@ -4126,7 +4145,7 @@ _delay((unsigned long)((500)*(8000000/4000.0)));
 TRISB1 = 0;
 _delay((unsigned long)((500)*(8000000/4000.0)));
 TRISB1 = 1;
-
+UART_send_string ("Dave is a legend!\n");
 
 
 temp_adc = Read_ADC (0);
@@ -4136,15 +4155,19 @@ UART_send_string(_adc_str);
 
 _delay((unsigned long)((100)*(8000000/4000.0)));
 
-
-
-
 humid_adc = Read_ADC (1);
 sprintf(_adc_str, "HUMID: %u\n", humid_adc);
 UART_send_string(_adc_str);
 
 _delay((unsigned long)((100)*(8000000/4000.0)));
 
+
+I2C_Master_Start();
+I2C_Master_Write(0xDE);
+I2C_Master_Write(0x00);
+I2C_Master_Stop();
+
+# 172
 }
 
 }
