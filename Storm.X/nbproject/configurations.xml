@@ -6,6 +6,8 @@
                    projectFiles="true">
       <itemPath>hw_uart.h</itemPath>
       <itemPath>hw_adc.h</itemPath>
+      <itemPath>hw_I2C.h</itemPath>
+      <itemPath>RTCC.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -17,6 +19,8 @@
       <itemPath>Test.c</itemPath>
       <itemPath>hw_uart.c</itemPath>
       <itemPath>hw_adc.c</itemPath>
+      <itemPath>hw_I2C.c</itemPath>
+      <itemPath>RTCC.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -169,7 +173,7 @@
                   value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-7fff"/>
-        <property key="poweroptions.powerenable" value="true"/>
+        <property key="poweroptions.powerenable" value="false"/>
         <property key="programmertogo.imagename" value=""/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>

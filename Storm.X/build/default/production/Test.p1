@@ -28,23 +28,33 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S241 . . . . ]
 "5731
 [v _INTCONbits `VS241 ~T0 @X0 0 e@4082 ]
+"23 hw_I2C.h
+[v _I2C_Master_Start `(v ~T0 @X0 0 ef ]
+"24
+[v _I2C_Master_Write `(v ~T0 @X0 0 ef1`ui ]
+"26
+[v _I2C_Master_Read `(us ~T0 @X0 0 ef1`us ]
+"25
+[v _I2C_Master_Stop `(v ~T0 @X0 0 ef ]
 [p mainexit ]
 "16 hw_uart.h
 [v _UART_Init `(v ~T0 @X0 0 ef1`ui ]
 "15 hw_adc.h
 [v _ADC_intialize `(v ~T0 @X0 0 ef ]
+"15 hw_I2C.h
+[v _InitI2C `(v ~T0 @X0 0 ef ]
 [v F2078 `(v ~T0 @X0 1 tf1`ul ]
 "203 C:/Users/Lab-User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\pic18.h
 [v __delay `JF2078 ~T0 @X0 0 e ]
 [p i __delay ]
 "7369 C:/Users/Lab-User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f2520.h
 [v _TRISB1 `Vb ~T0 @X0 0 e@31897 ]
+"17 hw_uart.h
+[v _UART_send_string `(v ~T0 @X0 0 ef1`*uc ]
 "16 hw_adc.h
 [v _Read_ADC `(ui ~T0 @X0 0 ef1`uc ]
 "194 C:\Program Files\Microchip\xc8\v2.31\pic\include\c90\stdio.h
 [v _sprintf `(i ~T0 @X0 0 e1v`*uc`*Cuc ]
-"17 hw_uart.h
-[v _UART_send_string `(v ~T0 @X0 0 ef1`*uc ]
 "7 Test.c
 [p x OSC=INTIO7 ]
 "8
@@ -2630,6 +2640,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;hw_adc.h: 15: extern void ADC_intialize(void);
 [; ;hw_adc.h: 16: extern unsigned int Read_ADC (unsigned char channel);
 [; ;hw_adc.h: 17: extern void ADC_INT (void );
+[; ;hw_I2C.h: 15: extern void InitI2C();
+[; ;hw_I2C.h: 23: extern void I2C_Master_Start();
+[; ;hw_I2C.h: 24: extern void I2C_Master_Write(unsigned d);
+[; ;hw_I2C.h: 25: extern void I2C_Master_Stop();
+[; ;hw_I2C.h: 26: extern unsigned short I2C_Master_Read(unsigned short a);
+[; ;RTCC.h: 14: extern void RTC_test_write (void);
+[; ;RTCC.h: 15: void RTC_test_read (void);
+[; ;RTCC.h: 16: void BCDtoDecimal (char val);
 "81 Test.c
 [v _CLK_intialize `(v ~T0 @X0 1 sf ]
 "82
@@ -2687,94 +2705,161 @@ Version 3.2 HI-TECH Software Intermediate Code
 "104
 [e :UE 251 ]
 }
-[v $root$_main `(v ~T0 @X0 0 e ]
+"108
+[v _test_func `(v ~T0 @X0 1 ef ]
 "109
-[v _main `(v ~T0 @X0 1 ef ]
-"110
 {
-[; ;Test.c: 109: void main()
-[; ;Test.c: 110: {
-[e :U _main ]
+[; ;Test.c: 108: void test_func()
+[; ;Test.c: 109: {
+[e :U _test_func ]
 [f ]
+[; ;Test.c: 110: I2C_Master_Start();
+"110
+[e ( _I2C_Master_Start ..  ]
+[; ;Test.c: 111: I2C_Master_Write(0xDF);
 "111
-[v _temp_adc `ui ~T0 @X0 1 a ]
-[; ;Test.c: 111: unsigned int temp_adc = 0;
-[e = _temp_adc -> -> 0 `i `ui ]
+[e ( _I2C_Master_Write (1 -> -> 223 `i `ui ]
+[; ;Test.c: 112: I2C_Master_Read(0);
 "112
-[v _humid_adc `ui ~T0 @X0 1 a ]
-[; ;Test.c: 112: unsigned int humid_adc = 0;
-[e = _humid_adc -> -> 0 `i `ui ]
+[e ( _I2C_Master_Read (1 -> -> 0 `i `us ]
+[; ;Test.c: 113: I2C_Master_Stop();
+"113
+[e ( _I2C_Master_Stop ..  ]
+[; ;Test.c: 114: }
 "114
-[v __adc_str `uc ~T0 @X0 -> 20 `i a ]
-"115
-[v __adc_buf `uc ~T0 @X0 -> 20 `i a ]
-[; ;Test.c: 114: char _adc_str[20];
-[; ;Test.c: 115: char _adc_buf[20];
-[; ;Test.c: 117: CLK_intialize();
-"117
-[e ( _CLK_intialize ..  ]
-[; ;Test.c: 118: PORT_Initialize();
-"118
-[e ( _PORT_Initialize ..  ]
-[; ;Test.c: 119: UART_Init(9600);
-"119
-[e ( _UART_Init (1 -> -> 9600 `i `ui ]
-[; ;Test.c: 120: ADC_intialize();
-"120
-[e ( _ADC_intialize ..  ]
-[; ;Test.c: 123: while (1)
-"123
-[e :U 254 ]
-[; ;Test.c: 124: {
-"124
-{
-[; ;Test.c: 128: _delay((unsigned long)((500)*(8000000/4000.0)));
-"128
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;Test.c: 129: TRISB1 = 0;
-"129
-[e = _TRISB1 -> -> 0 `i `b ]
-[; ;Test.c: 130: _delay((unsigned long)((500)*(8000000/4000.0)));
-"130
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;Test.c: 131: TRISB1 = 1;
-"131
-[e = _TRISB1 -> -> 1 `i `b ]
-[; ;Test.c: 135: temp_adc = Read_ADC (0);
-"135
-[e = _temp_adc ( _Read_ADC (1 -> -> 0 `i `uc ]
-[; ;Test.c: 137: sprintf(_adc_str,"TEMP: %u\n", temp_adc);
-"137
-[e ( _sprintf (1 , (. , &U __adc_str :s 1C _temp_adc ]
-[; ;Test.c: 138: UART_send_string(_adc_str);
-"138
-[e ( _UART_send_string (1 &U __adc_str ]
-[; ;Test.c: 140: _delay((unsigned long)((100)*(8000000/4000.0)));
-"140
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;Test.c: 145: humid_adc = Read_ADC (1);
-"145
-[e = _humid_adc ( _Read_ADC (1 -> -> 1 `i `uc ]
-[; ;Test.c: 146: sprintf(_adc_str, "HUMID: %u\n", humid_adc);
-"146
-[e ( _sprintf (1 , (. , &U __adc_str :s 2C _humid_adc ]
-[; ;Test.c: 147: UART_send_string(_adc_str);
-"147
-[e ( _UART_send_string (1 &U __adc_str ]
-[; ;Test.c: 149: _delay((unsigned long)((100)*(8000000/4000.0)));
-"149
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-"151
-}
-[e :U 253 ]
-"123
-[e $U 254  ]
-[e :U 255 ]
-[; ;Test.c: 151: }
-[; ;Test.c: 153: }
-"153
 [e :UE 252 ]
 }
+[v $root$_main `(v ~T0 @X0 0 e ]
+"116
+[v _main `(v ~T0 @X0 1 ef ]
+"117
+{
+[; ;Test.c: 116: void main()
+[; ;Test.c: 117: {
+[e :U _main ]
+[f ]
+"119
+[v _temp_adc `ui ~T0 @X0 1 a ]
+[; ;Test.c: 119: unsigned int temp_adc = 0;
+[e = _temp_adc -> -> 0 `i `ui ]
+"120
+[v _humid_adc `ui ~T0 @X0 1 a ]
+[; ;Test.c: 120: unsigned int humid_adc = 0;
+[e = _humid_adc -> -> 0 `i `ui ]
+"122
+[v __adc_str `uc ~T0 @X0 -> 20 `i a ]
+"123
+[v __adc_buf `uc ~T0 @X0 -> 20 `i a ]
+[; ;Test.c: 122: char _adc_str[20];
+[; ;Test.c: 123: char _adc_buf[20];
+[; ;Test.c: 125: CLK_intialize();
+"125
+[e ( _CLK_intialize ..  ]
+[; ;Test.c: 126: PORT_Initialize();
+"126
+[e ( _PORT_Initialize ..  ]
+[; ;Test.c: 127: UART_Init(9600);
+"127
+[e ( _UART_Init (1 -> -> 9600 `i `ui ]
+[; ;Test.c: 128: ADC_intialize();
+"128
+[e ( _ADC_intialize ..  ]
+[; ;Test.c: 130: InitI2C();
+"130
+[e ( _InitI2C ..  ]
+"133
+[v _i2c_val `uc ~T0 @X0 1 a ]
+"134
+[v _time `uc ~T0 @X0 -> 10 `i a ]
+[; ;Test.c: 133: unsigned char i2c_val;
+[; ;Test.c: 134: char time [10];
+[; ;Test.c: 136: while (1)
+"136
+[e :U 255 ]
+[; ;Test.c: 137: {
+"137
+{
+[; ;Test.c: 141: _delay((unsigned long)((500)*(8000000/4000.0)));
+"141
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;Test.c: 142: TRISB1 = 0;
+"142
+[e = _TRISB1 -> -> 0 `i `b ]
+[; ;Test.c: 143: _delay((unsigned long)((500)*(8000000/4000.0)));
+"143
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;Test.c: 144: TRISB1 = 1;
+"144
+[e = _TRISB1 -> -> 1 `i `b ]
+[; ;Test.c: 145: UART_send_string ("Dave is a legend!\n");
+"145
+[e ( _UART_send_string (1 -> :s 1C `*uc ]
+[; ;Test.c: 148: temp_adc = Read_ADC (0);
+"148
+[e = _temp_adc ( _Read_ADC (1 -> -> 0 `i `uc ]
+[; ;Test.c: 150: sprintf(_adc_str,"TEMP: %u\n", temp_adc);
+"150
+[e ( _sprintf (1 , (. , &U __adc_str :s 2C _temp_adc ]
+[; ;Test.c: 151: UART_send_string(_adc_str);
+"151
+[e ( _UART_send_string (1 &U __adc_str ]
+[; ;Test.c: 153: _delay((unsigned long)((100)*(8000000/4000.0)));
+"153
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;Test.c: 155: humid_adc = Read_ADC (1);
+"155
+[e = _humid_adc ( _Read_ADC (1 -> -> 1 `i `uc ]
+[; ;Test.c: 156: sprintf(_adc_str, "HUMID: %u\n", humid_adc);
+"156
+[e ( _sprintf (1 , (. , &U __adc_str :s 3C _humid_adc ]
+[; ;Test.c: 157: UART_send_string(_adc_str);
+"157
+[e ( _UART_send_string (1 &U __adc_str ]
+[; ;Test.c: 159: _delay((unsigned long)((100)*(8000000/4000.0)));
+"159
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;Test.c: 162: I2C_Master_Start();
+"162
+[e ( _I2C_Master_Start ..  ]
+[; ;Test.c: 163: I2C_Master_Write(0xDE);
+"163
+[e ( _I2C_Master_Write (1 -> -> 222 `i `ui ]
+[; ;Test.c: 164: I2C_Master_Write(0x00);
+"164
+[e ( _I2C_Master_Write (1 -> -> 0 `i `ui ]
+[; ;Test.c: 165: I2C_Master_Stop();
+"165
+[e ( _I2C_Master_Stop ..  ]
+[; ;Test.c: 166: _delay((unsigned long)((5)*(8000000/4000.0)));
+"166
+[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;Test.c: 167: I2C_Master_Write(0xDF);
+"167
+[e ( _I2C_Master_Write (1 -> -> 223 `i `ui ]
+[; ;Test.c: 168: I2C_Master_Stop();
+"168
+[e ( _I2C_Master_Stop ..  ]
+[; ;Test.c: 169: _delay((unsigned long)((5)*(8000000/4000.0)));
+"169
+[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;Test.c: 173: _delay((unsigned long)((5)*(8000000/4000.0)));
+"173
+[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;Test.c: 180: test_func();
+"180
+[e ( _test_func ..  ]
+"192
+}
+[e :U 254 ]
+"136
+[e $U 255  ]
+[e :U 256 ]
+[; ;Test.c: 192: }
+[; ;Test.c: 194: }
+"194
+[e :UE 253 ]
+}
 [p f _sprintf 8389632 ]
-[a 1C 84 69 77 80 58 32 37 117 10 0 ]
-[a 2C 72 85 77 73 68 58 32 37 117 10 0 ]
+[a 2C 84 69 77 80 58 32 37 117 10 0 ]
+[a 3C 72 85 77 73 68 58 32 37 117 10 0 ]
+[a 1C 68 97 118 101 32 105 115 32 97 32 108 101 103 101 110 100 33 10 0 ]

@@ -69,10 +69,10 @@
 #include <string.h>
 #include "pic18f2520.h"
 #define _XTAL_FREQ 8000000
-
 #include "hw_uart.h"
 #include "hw_adc.h"
-//#define vref 4.5
+#include "hw_I2C.h"
+#include "RTCC.h"
 
 #define TEMPERATURE 0
 #define HUMIDITY 1
@@ -105,9 +105,17 @@ static void INTERRUPT_Initialize(void)
 
         /*//////////ADC SET UP *///////////////
 
+void test_func()
+{
+    I2C_Master_Start();
+    I2C_Master_Write(0xDF);
+    I2C_Master_Read(0);
+    I2C_Master_Stop();
+}
 
 void main()
 {
+    /****SAMPLING TWO ADC CHANNELS****/
     unsigned int temp_adc = 0;
     unsigned int humid_adc = 0;
     
@@ -118,7 +126,12 @@ void main()
    PORT_Initialize();
    UART_Init(9600);
    ADC_intialize();
-   
+   /********REAL TIME CLOCK** ****/
+      InitI2C();
+      
+     
+     unsigned char i2c_val;
+     char time [10];
    
     while (1)
     {
@@ -129,25 +142,53 @@ void main()
             TRISB1 = 0;
            __delay_ms(500);
             TRISB1 = 1;
-
-            
-              
+ UART_send_string    ("Dave is a legend!\n");
+      
+              /****SAMPLING TWO ADC CHANNELS****/
             temp_adc = Read_ADC (TEMPERATURE);
        
             sprintf(_adc_str,"TEMP: %u\n", temp_adc);
             UART_send_string(_adc_str);
             
             __delay_ms(100);
-            
-          
            
-            
            humid_adc = Read_ADC (HUMIDITY);
            sprintf(_adc_str, "HUMID: %u\n", humid_adc);
           UART_send_string(_adc_str);
              
            __delay_ms(100);
-      
+           
+           /****RTC***/
+         I2C_Master_Start();
+         I2C_Master_Write(0xDE);
+         I2C_Master_Write(0x00);    //Write data
+         I2C_Master_Stop();
+          __delay_ms(5);
+         I2C_Master_Write(0xDF);
+         I2C_Master_Stop();
+          __delay_ms(5);
+         //I2C_Master_Read(1);
+         //I2C_Master_Stop();
+         /*RTC READ*/  
+          __delay_ms(5);
+//          I2C_Master_Start();
+//          I2C_Master_Write(0xDF);
+//          I2C_Master_Write(0x);
+//          //I2C_Master_Read(0);
+          //I2C_Master_Stop();
+          
+          test_func();
+           
+          //RTC_test_write () ;
+       
+       // UART_send_string    ("Dave is a legend!\n");
+        //  sprintf(time,"TIME\n",i2c_val);
+        //  UART_send_string(time);
+    
+    
+    
+    
+    
     }
      
 }

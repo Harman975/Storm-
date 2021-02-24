@@ -1,61 +1,5 @@
 
-# 1 "Test.c"
-
-
-# 7
-#pragma config OSC = INTIO7
-#pragma config FCMEN = OFF
-#pragma config IESO = OFF
-
-
-#pragma config PWRT = OFF
-#pragma config BOREN = SBORDIS
-#pragma config BORV = 3
-
-
-#pragma config WDT = OFF
-#pragma config WDTPS = 32768
-
-
-#pragma config CCP2MX = PORTC
-#pragma config PBADEN = ON
-#pragma config LPT1OSC = OFF
-#pragma config MCLRE = ON
-
-
-#pragma config STVREN = ON
-#pragma config LVP = ON
-#pragma config XINST = OFF
-
-
-#pragma config CP0 = OFF
-#pragma config CP1 = OFF
-#pragma config CP2 = OFF
-#pragma config CP3 = OFF
-
-
-#pragma config CPB = OFF
-#pragma config CPD = OFF
-
-
-#pragma config WRT0 = OFF
-#pragma config WRT1 = OFF
-#pragma config WRT2 = OFF
-#pragma config WRT3 = OFF
-
-
-#pragma config WRTC = OFF
-#pragma config WRTB = OFF
-#pragma config WRTD = OFF
-
-
-#pragma config EBTR0 = OFF
-#pragma config EBTR1 = OFF
-#pragma config EBTR2 = OFF
-#pragma config EBTR3 = OFF
-
-
-#pragma config EBTRB = OFF
+# 1 "hw_I2C.c"
 
 # 18 "C:/Users/Lab-User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\xc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -4065,129 +4009,57 @@ extern char * strichr(const char *, int);
 extern char * strrchr(const char *, int);
 extern char * strrichr(const char *, int);
 
-# 16 "hw_uart.h"
-extern void UART_Init(unsigned int baud_rate);
-extern void UART_send_string(char* st_pt);
-
-# 15 "hw_adc.h"
-extern void ADC_intialize(void);
-extern unsigned int Read_ADC (unsigned char channel);
-extern void ADC_INT (void );
-
-# 15 "hw_I2C.h"
-extern void InitI2C();
-
-# 23
-extern void I2C_Master_Start();
-extern void I2C_Master_Write(unsigned d);
-extern void I2C_Master_Stop();
-extern unsigned short I2C_Master_Read(unsigned short a);
-
-# 14 "RTCC.h"
-extern void RTC_test_write (void);
-void RTC_test_read (void);
-void BCDtoDecimal (char val);
-
-# 81 "Test.c"
-static void CLK_intialize (void)
+# 19 "hw_I2C.c"
+void InitI2C()
 {
+TRISC3 = 1;
+TRISC4 = 1;
 
-
-
-
-OSCCONbits.IRCF = 0b111;
-
-OSCCONbits.IDLEN = 0b0;
-OSCCONbits.SCS = 0b11 ;
+SSPADD = 0x13;
+SSPSTAT = 0;
+SSPCON1bits.SSPEN = 1;
+SSPCON1bits.SSPM = 0b1000;
+SSPIF = 0;
 }
 
-static void PORT_Initialize(void)
+void I2C_Master_Wait()
 {
-TRISC6 = 1;
-TRISC7 = 1;
+while ((SSPSTAT & 0x04) || (SSPCON2 & 0x1F));
+}
+void I2C_Master_Start()
+{
+I2C_Master_Wait();
+SEN = 1;
 }
 
-
-static void INTERRUPT_Initialize(void)
+void I2C_Master_RepeatedStart()
 {
-INTCONbits.GIE = 1;
-INTCONbits.PEIE = 1;
+I2C_Master_Wait();
+RSEN = 1;
 }
 
-
-
-void test_func()
+void I2C_Master_Stop()
 {
-I2C_Master_Start();
-I2C_Master_Write(0xDF);
-I2C_Master_Read(0);
-I2C_Master_Stop();
+I2C_Master_Wait();
+PEN = 1;
 }
 
-void main()
+void I2C_Master_Write(unsigned d)
 {
-
-unsigned int temp_adc = 0;
-unsigned int humid_adc = 0;
-
-char _adc_str[20];
-char _adc_buf[20];
-
-CLK_intialize();
-PORT_Initialize();
-UART_Init(9600);
-ADC_intialize();
-
-InitI2C();
-
-
-unsigned char i2c_val;
-char time [10];
-
-while (1)
-{
-
-
-
-_delay((unsigned long)((500)*(8000000/4000.0)));
-TRISB1 = 0;
-_delay((unsigned long)((500)*(8000000/4000.0)));
-TRISB1 = 1;
-UART_send_string ("Dave is a legend!\n");
-
-
-temp_adc = Read_ADC (0);
-
-sprintf(_adc_str,"TEMP: %u\n", temp_adc);
-UART_send_string(_adc_str);
-
-_delay((unsigned long)((100)*(8000000/4000.0)));
-
-humid_adc = Read_ADC (1);
-sprintf(_adc_str, "HUMID: %u\n", humid_adc);
-UART_send_string(_adc_str);
-
-_delay((unsigned long)((100)*(8000000/4000.0)));
-
-
-I2C_Master_Start();
-I2C_Master_Write(0xDE);
-I2C_Master_Write(0x00);
-I2C_Master_Stop();
-_delay((unsigned long)((5)*(8000000/4000.0)));
-I2C_Master_Write(0xDF);
-I2C_Master_Stop();
-_delay((unsigned long)((5)*(8000000/4000.0)));
-
-
-
-_delay((unsigned long)((5)*(8000000/4000.0)));
-
-# 180
-test_func();
-
-# 192
+I2C_Master_Wait();
+SSPBUF = d;
 }
 
+unsigned short I2C_Master_Read(unsigned short a)
+{
+unsigned short data;
+I2C_Master_Wait();
+RCEN = 1;
+I2C_Master_Wait();
+data = SSPBUF;
+I2C_Master_Wait();
+ACKDT = (a)?0:1;
+ACKEN = 1;
+return data;
 }
 

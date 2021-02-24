@@ -3978,13 +3978,13 @@ unsigned int Read_ADC (unsigned char channel)
 unsigned int result = 0;
 if (channel == 0)
 {
-ADCON0bits.CHS = 0b0010;
+ADCON0bits.CHS = 0b0001;
 
 }
 if (channel == 1)
 {
 
-ADCON0bits.CHS = 0b0001;
+ADCON0bits.CHS = 0b0010;
 
 }
 

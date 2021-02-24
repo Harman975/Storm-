@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=Test.c hw_uart.c hw_adc.c
+SOURCEFILES_QUOTED_IF_SPACED=Test.c hw_uart.c hw_adc.c hw_I2C.c RTCC.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/Test.p1 ${OBJECTDIR}/hw_uart.p1 ${OBJECTDIR}/hw_adc.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/Test.p1.d ${OBJECTDIR}/hw_uart.p1.d ${OBJECTDIR}/hw_adc.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/Test.p1 ${OBJECTDIR}/hw_uart.p1 ${OBJECTDIR}/hw_adc.p1 ${OBJECTDIR}/hw_I2C.p1 ${OBJECTDIR}/RTCC.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/Test.p1.d ${OBJECTDIR}/hw_uart.p1.d ${OBJECTDIR}/hw_adc.p1.d ${OBJECTDIR}/hw_I2C.p1.d ${OBJECTDIR}/RTCC.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/Test.p1 ${OBJECTDIR}/hw_uart.p1 ${OBJECTDIR}/hw_adc.p1
+OBJECTFILES=${OBJECTDIR}/Test.p1 ${OBJECTDIR}/hw_uart.p1 ${OBJECTDIR}/hw_adc.p1 ${OBJECTDIR}/hw_I2C.p1 ${OBJECTDIR}/RTCC.p1
 
 # Source Files
-SOURCEFILES=Test.c hw_uart.c hw_adc.c
+SOURCEFILES=Test.c hw_uart.c hw_adc.c hw_I2C.c RTCC.c
 
 
 
@@ -118,6 +118,22 @@ ${OBJECTDIR}/hw_adc.p1: hw_adc.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/hw_adc.d ${OBJECTDIR}/hw_adc.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/hw_adc.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+${OBJECTDIR}/hw_I2C.p1: hw_I2C.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/hw_I2C.p1.d 
+	@${RM} ${OBJECTDIR}/hw_I2C.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c90 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/hw_I2C.p1 hw_I2C.c 
+	@-${MV} ${OBJECTDIR}/hw_I2C.d ${OBJECTDIR}/hw_I2C.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/hw_I2C.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/RTCC.p1: RTCC.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/RTCC.p1.d 
+	@${RM} ${OBJECTDIR}/RTCC.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c90 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/RTCC.p1 RTCC.c 
+	@-${MV} ${OBJECTDIR}/RTCC.d ${OBJECTDIR}/RTCC.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/RTCC.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 else
 ${OBJECTDIR}/Test.p1: Test.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}" 
@@ -142,6 +158,22 @@ ${OBJECTDIR}/hw_adc.p1: hw_adc.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c90 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/hw_adc.p1 hw_adc.c 
 	@-${MV} ${OBJECTDIR}/hw_adc.d ${OBJECTDIR}/hw_adc.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/hw_adc.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/hw_I2C.p1: hw_I2C.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/hw_I2C.p1.d 
+	@${RM} ${OBJECTDIR}/hw_I2C.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c90 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/hw_I2C.p1 hw_I2C.c 
+	@-${MV} ${OBJECTDIR}/hw_I2C.d ${OBJECTDIR}/hw_I2C.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/hw_I2C.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/RTCC.p1: RTCC.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/RTCC.p1.d 
+	@${RM} ${OBJECTDIR}/RTCC.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c90 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/RTCC.p1 RTCC.c 
+	@-${MV} ${OBJECTDIR}/RTCC.d ${OBJECTDIR}/RTCC.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/RTCC.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 endif
 
